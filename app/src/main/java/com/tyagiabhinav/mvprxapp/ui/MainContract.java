@@ -7,10 +7,10 @@ package com.tyagiabhinav.mvprxapp.ui;
 public interface MainContract {
 
     interface View{
-
+        void updateView(String data);
     }
 
     interface Presenter{
-
+        void getText(String inputData);
     }
 }
