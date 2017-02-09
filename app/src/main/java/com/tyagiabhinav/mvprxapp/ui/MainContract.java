@@ -1,5 +1,7 @@
 package com.tyagiabhinav.mvprxapp.ui;
 
+import com.tyagiabhinav.mvprxapp.model.pojo.Restaurant;
+
 /**
  * Created by abhinavtyagi on 03/02/17.
  */
@@ -7,10 +9,11 @@ package com.tyagiabhinav.mvprxapp.ui;
 public interface MainContract {
 
     interface View{
-        void updateView(String data);
+        void updateView(Restaurant restaurant);
     }
 
     interface Presenter{
-        void getText(String inputData);
+        void getData(int sortOrder);
+        void onLocationChanged();
     }
 }

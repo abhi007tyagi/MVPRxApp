@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/ic_thumb_up_white_64dp" android:state_selected="true"></item>
+    <item android:drawable="@drawable/ic_thumb_up_white_64dp" android:state_pressed="true"></item>
+    <item android:drawable="@drawable/ic_thumb_up_black_64dp"></item>
+
+</selector>

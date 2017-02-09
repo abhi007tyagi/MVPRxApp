@@ -1,3 +1,25 @@
 <resources>
-    <string name="app_name">MVPRxApp</string>
+    <string name="app_name">Find Food</string>
+    <string name="title_restaurant_detail">Restaurant Detail</string>
+    <string name="latitude">lat</string>
+    <string name="longitude">lon</string>
+    <string name="search_item">cuisine</string>
+    <string name="search_hint">cuisine name?</string>
+    <string name="query">query</string>
+    <string name="filter">filter</string>
+    <string name="review_title">Write a review</string>
+    <string name="last_update_time">last_time</string>
+    <string name="no_nearby_restaurants">No Nearby Restaurants!!</string>
+    <string name="get_google_map">Please install Google Maps!</string>
+    <string name="navigation_unavailable">Navigation not available!!</string>
+    <string name="down_action_yes_msg">Venue will not come up in future searches!</string>
+    <string name="down_action_alert_msg">You disliked the venue. The venue will not be shown again in future searches. Are you sure to continue?</string>
+    <string name="review_empty_warning">Please enter review comments</string>
+
+    <string-array name="sort_option">
+        <item>distance</item>
+        <item>price</item>
+        <item>rating</item>
+        <item>open</item>
+    </string-array>
 </resources>
