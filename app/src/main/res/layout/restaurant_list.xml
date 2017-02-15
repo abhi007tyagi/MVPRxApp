@@ -6,5 +6,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutManager="GridLayoutManager"
-    tools:context="com.tyagiabhinav.mvprxapp.ui.MainActivity"
+    tools:context=".view.ui.MainActivity"
     tools:listitem="@layout/restaurant_list_content" />

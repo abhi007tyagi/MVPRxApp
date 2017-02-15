@@ -9,7 +9,7 @@ import android.support.v4.content.Loader;
 import android.util.Log;
 
 import com.tyagiabhinav.mvprxapp.model.db.DatabaseContract;
-import com.tyagiabhinav.mvprxapp.ui.SortOrder;
+import com.tyagiabhinav.mvprxapp.view.ui.SortOrder;
 
 /**
  * Created by abhinavtyagi on 06/02/17.

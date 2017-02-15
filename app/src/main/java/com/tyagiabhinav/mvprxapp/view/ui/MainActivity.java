@@ -1,4 +1,4 @@
-package com.tyagiabhinav.mvprxapp.ui;
+package com.tyagiabhinav.mvprxapp.view.ui;
 
 import android.Manifest;
 import android.content.Intent;
@@ -21,6 +21,8 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.tyagiabhinav.mvprxapp.R;
+import com.tyagiabhinav.mvprxapp.model.Injection;
+import com.tyagiabhinav.mvprxapp.model.LoaderProvider;
 import com.tyagiabhinav.mvprxapp.model.pojo.Restaurant;
 import com.tyagiabhinav.mvprxapp.util.NetworkUtils;
 import com.tyagiabhinav.mvprxapp.util.PrefHelper;
@@ -85,7 +87,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             mTwoPane = true;
         }
 
-        presenter = new MainPresenter(this);
+        // Create the presenter
+        LoaderProvider loaderProvider = new LoaderProvider(this);
+
+        presenter = new MainPresenter(this, loaderProvider, getSupportLoaderManager(), Injection.provideRestaurantRepo(getApplicationContext()));
     }
 
     @Override

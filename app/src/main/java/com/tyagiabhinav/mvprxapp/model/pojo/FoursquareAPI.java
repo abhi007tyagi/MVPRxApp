@@ -9,8 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class FoursquareAPI implements Parcelable
-{
+public class FoursquareAPI implements Parcelable {
 
     @SerializedName("meta")
     @Expose
@@ -24,23 +23,20 @@ public class FoursquareAPI implements Parcelable
     public final static Creator<FoursquareAPI> CREATOR = new Creator<FoursquareAPI>() {
 
 
-        @SuppressWarnings({
-            "unchecked"
-        })
-        public FoursquareAPI createFromParcel(Parcel in) {
-            FoursquareAPI instance = new FoursquareAPI();
-            instance.meta = ((Meta) in.readValue((Meta.class.getClassLoader())));
-            in.readList(instance.notifications, (com.tyagiabhinav.mvprxapp.model.pojo.Notification.class.getClassLoader()));
-            instance.response = ((Response) in.readValue((Response.class.getClassLoader())));
-            return instance;
-        }
+    @SuppressWarnings({"unchecked"})
+    public FoursquareAPI createFromParcel(Parcel in) {
+        FoursquareAPI instance = new FoursquareAPI();
+        instance.meta = ((Meta) in.readValue((Meta.class.getClassLoader())));
+        in.readList(instance.notifications, (com.tyagiabhinav.mvprxapp.model.pojo.Notification.class.getClassLoader()));
+        instance.response = ((Response) in.readValue((Response.class.getClassLoader())));
+        return instance;
+    }
 
-        public FoursquareAPI[] newArray(int size) {
+    public FoursquareAPI[] newArray(int size) {
             return (new FoursquareAPI[size]);
         }
 
-    }
-    ;
+    };
 
     public Meta getMeta() {
         return meta;
@@ -73,7 +69,7 @@ public class FoursquareAPI implements Parcelable
     }
 
     public int describeContents() {
-        return  0;
+        return 0;
     }
 
 }

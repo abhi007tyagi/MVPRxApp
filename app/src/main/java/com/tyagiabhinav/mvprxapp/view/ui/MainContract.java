@@ -1,4 +1,4 @@
-package com.tyagiabhinav.mvprxapp.ui;
+package com.tyagiabhinav.mvprxapp.view.ui;
 
 import com.tyagiabhinav.mvprxapp.model.pojo.Restaurant;
 

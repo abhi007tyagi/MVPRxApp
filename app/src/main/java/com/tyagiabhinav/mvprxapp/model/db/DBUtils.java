@@ -6,7 +6,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.tyagiabhinav.mvprxapp.MVPRxAPP;
-import com.tyagiabhinav.mvprxapp.util.NetworkUtils;
 
 /**
  * Created by abhinavtyagi on 08/02/17.
@@ -14,7 +13,7 @@ import com.tyagiabhinav.mvprxapp.util.NetworkUtils;
 
 public class DBUtils {
 
-    private static final String TAG = NetworkUtils.class.getSimpleName();
+    private static final String TAG = DBUtils.class.getSimpleName();
 
     private static Context getContext() {
 
