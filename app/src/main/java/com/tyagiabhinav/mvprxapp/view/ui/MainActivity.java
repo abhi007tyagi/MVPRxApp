@@ -8,9 +8,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
@@ -24,8 +27,12 @@ import com.tyagiabhinav.mvprxapp.R;
 import com.tyagiabhinav.mvprxapp.model.Injection;
 import com.tyagiabhinav.mvprxapp.model.LoaderProvider;
 import com.tyagiabhinav.mvprxapp.model.pojo.Restaurant;
+import com.tyagiabhinav.mvprxapp.util.DividerLine;
 import com.tyagiabhinav.mvprxapp.util.NetworkUtils;
 import com.tyagiabhinav.mvprxapp.util.PrefHelper;
+import com.tyagiabhinav.mvprxapp.view.adapters.RecyclerViewAdapter;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,8 +56,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-//    @BindView(R.id.restaurant_list)
-//    RecyclerView mRecyclerView;
+    @BindView(R.id.restaurant_list)
+    RecyclerView mRecyclerView;
 
 
 
@@ -59,33 +66,25 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ButterKnife.bind(this);
-
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             isLocationPermissionGranted();
         }
 
+        ButterKnife.bind(this);
+
         setSupportActionBar(toolbar);
         Log.d(TAG, "onCreate: toolbar set");
-        if(toolbar != null) toolbar.setTitle(getTitle());
+        toolbar.setTitle(getTitle());
 
-//        // to improve performance as changes in content do not change the layout size of the RecyclerView
-//        mRecyclerView.setHasFixedSize(true);
-//
-//        int numColumns = 2;
-//
-//        // use grid layout manager for positioning of items in the list in grid formation
-//        final RecyclerView.LayoutManager restaurantLayoutManager = new GridLayoutManager(MainActivity.this, numColumns);
-//        mRecyclerView.setLayoutManager(restaurantLayoutManager);
-//        mRecyclerView.addItemDecoration(new DividerLine(this));
+        // to improve performance as changes in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
 
-        if (findViewById(R.id.restaurant_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
-            mTwoPane = true;
-        }
+        int numColumns = 2;
+
+        // use grid layout manager for positioning of items in the list in grid formation
+        final RecyclerView.LayoutManager restaurantLayoutManager = new GridLayoutManager(MainActivity.this, numColumns);
+        mRecyclerView.setLayoutManager(restaurantLayoutManager);
+        mRecyclerView.addItemDecoration(new DividerLine(this));
 
         // Create the presenter
         LoaderProvider loaderProvider = new LoaderProvider(this);
@@ -233,8 +232,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
 
     @Override
-    public void updateView(Restaurant restaurant) {
-
+    public void updateView(List<Restaurant> restaurants) {
+        if (mRecyclerView != null) {
+            Log.d(TAG, "setupRecyclerView: ");
+            RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mTwoPane, restaurants);
+            mRecyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
+        if (restaurants.size() < 1) {
+            Snackbar.make(mRecyclerView, getString(R.string.no_nearby_restaurants), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
     }
 
 }

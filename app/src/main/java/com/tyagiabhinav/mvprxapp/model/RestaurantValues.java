@@ -1,6 +1,7 @@
 package com.tyagiabhinav.mvprxapp.model;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.util.SparseArray;
 
 import com.tyagiabhinav.mvprxapp.model.db.DatabaseContract;
@@ -67,6 +68,31 @@ public class RestaurantValues {
 //        valueMap.put(1, restaurantVisitedValue);
 
         return restaurantValue;
+    }
+
+    public static final Restaurant getRestaurantFromCursor( Cursor cursor){
+        Restaurant restaurant = new Restaurant();
+        restaurant.setId(cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_RESTAURANT_ID)));
+        restaurant.setName(cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_NAME)));
+        restaurant.setAddress(cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_ADDRESS)));
+        restaurant.setLat(cursor.getDouble(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_LATITUDE)));
+        restaurant.setLon(cursor.getDouble(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_LONGITUDE)));
+        restaurant.setDistance(cursor.getFloat(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_DISTANCE)));
+        restaurant.setRating(cursor.getFloat(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_RATING)));
+        restaurant.setPrice(cursor.getInt(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_PRICE)));
+        restaurant.setOpen((cursor.getInt(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_IS_OPEN)) != 0) ? true : false);
+        restaurant.setImgUrl(cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_IMG_URL)));
+        restaurant.setIconUrl(cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_ICON_URL)));
+        restaurant.setCategory(cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_CATEGORY)));
+        restaurant.setTips(cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_TIPS)));
+        restaurant.setUrl(cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_URL)));
+        restaurant.setPhone(cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_PHONE)));
+        restaurant.setVisited((cursor.getInt(cursor.getColumnIndex(DatabaseContract.TableRestaurantsVisited.COL_IS_VISITED)) != 0) ? true : false);
+        restaurant.setVisited((cursor.getInt(cursor.getColumnIndex(DatabaseContract.TableRestaurantsVisited.COL_IS_CONSIDERED)) != 0) ? true : false);
+        restaurant.setComments(cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurantsVisited.COL_COMMENTS)));
+
+        return restaurant;
+
     }
 
 }

@@ -143,6 +143,7 @@ public class RemoteDataSource implements DataSource {
                     iconUrl.append(cat.getIcon().getPrefix())
                             .append("bg_88")
                             .append(cat.getIcon().getSuffix());
+                    restaurant.setIconUrl(iconUrl.toString());
                 }
                 if(venue.getHours() != null){
                     restaurant.setOpen(venue.getHours().getIsOpen());

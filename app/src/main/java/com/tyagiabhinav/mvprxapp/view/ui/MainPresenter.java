@@ -9,8 +9,10 @@ import android.util.Log;
 import com.tyagiabhinav.mvprxapp.model.DataSource;
 import com.tyagiabhinav.mvprxapp.model.LoaderProvider;
 import com.tyagiabhinav.mvprxapp.model.RestaurantSource;
+import com.tyagiabhinav.mvprxapp.model.RestaurantValues;
 import com.tyagiabhinav.mvprxapp.model.pojo.Restaurant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,8 +53,24 @@ public class MainPresenter implements MainContract.Presenter, LoaderManager.Load
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Log.d(TAG, "onLoadFinished: "+data.getCount());
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        Log.d(TAG, "onLoadFinished: "+cursor.getCount());
+        ArrayList<Restaurant> restaurants = new ArrayList<>();
+
+        if (cursor != null) {
+            Log.d(TAG, "onLoadFinished -->" + cursor.getCount());
+            // move cursor to first row
+            if (cursor.moveToFirst()) {
+                do {
+                    restaurants.add(RestaurantValues.getRestaurantFromCursor(cursor));
+                    // move to next row
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            Log.d(TAG, "Destroying Loader");
+            mLoaderManager.destroyLoader(loader.getId());
+            view.updateView(restaurants);
+        }
     }
 
     @Override
@@ -62,7 +80,6 @@ public class MainPresenter implements MainContract.Presenter, LoaderManager.Load
 
     @Override
     public void onLocationChanged() {
-
         mRestaurantSource.getRestaurants(this);
     }
 

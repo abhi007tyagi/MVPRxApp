@@ -10,11 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.tyagiabhinav.mvprxapp.MVPRxAPP;
 import com.tyagiabhinav.mvprxapp.R;
 import com.tyagiabhinav.mvprxapp.model.pojo.Restaurant;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,9 +28,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private Context mContext;
     private boolean mTwoPane;
-    private final ArrayList<Restaurant> mRestaurants;
+    private final List<Restaurant> mRestaurants;
 
-    public RecyclerViewAdapter(Context context, boolean twoPane, ArrayList<Restaurant> restaurants) {
+    Picasso picasso;
+
+    public RecyclerViewAdapter(Context context, boolean twoPane, List<Restaurant> restaurants) {
         mContext = context;
         mTwoPane = twoPane;
         mRestaurants = restaurants;
@@ -62,8 +65,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
         // bind ui views with data
-        Picasso.with(mContext)
-                .load(restaurant.getIconUrl())
+        MVPRxAPP.getPicasso().load(restaurant.getIconUrl())
                 .into(holder.icon);
 
         if (restaurant.isOpen())

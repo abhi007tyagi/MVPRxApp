@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/restaurant_list"
+    android:name="com.tyagiabhinav.mvprxapp.view.ui.MainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutManager="GridLayoutManager"
-    tools:context=".view.ui.MainActivity"
+    tools:context="com.tyagiabhinav.mvprxapp.view.ui.MainActivity"
     tools:listitem="@layout/restaurant_list_content" />

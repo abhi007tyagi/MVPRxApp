@@ -15,9 +15,6 @@ android {
                 cppFlags ""
             }
         }
-//        jackOptions {
-//            enabled true
-//        }
     }
     buildTypes {
         debug {
@@ -36,10 +33,6 @@ android {
             path "CMakeLists.txt"
         }
     }
-//    compileOptions {
-//        targetCompatibility 1.8
-//        sourceCompatibility 1.8
-//    }
 }
 
 dependencies {
@@ -57,12 +50,17 @@ dependencies {
     // add location services for fused location
     compile 'com.google.android.gms:play-services-location:10.0.1'
     // add butterknife
-    compile 'com.jakewharton:butterknife:8.1.0'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     // retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.jakewharton.timber:timber:4.1.2'
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+    // dagger 2
+    compile 'com.google.dagger:dagger:2.6'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.6'
+
     testCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
