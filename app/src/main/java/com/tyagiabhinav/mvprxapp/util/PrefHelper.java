@@ -8,9 +8,8 @@
 
 package com.tyagiabhinav.mvprxapp.util;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.tyagiabhinav.mvprxapp.MVPRxAPP;
@@ -25,31 +24,32 @@ public class PrefHelper {
     private static final String TAG = PrefHelper.class.getSimpleName();
 
 
-    private static SharedPreferences prefs;
-    private static SharedPreferences.Editor editor;
+    private final SharedPreferences prefs;
+    private final SharedPreferences.Editor editor;
 
 
-    PrefHelper() {
-
-    }
-
-    /**
-     * Initializes the Preference Helper class
-     *
-     * @param ctx
-     */
-    public synchronized static void init(Context ctx) {
-        prefs = PreferenceManager.getDefaultSharedPreferences(MVPRxAPP.getContext());
+    public PrefHelper(@NonNull SharedPreferences pref) {
+        this.prefs = pref;
         editor = prefs.edit();
         editor.apply();
         Log.d(TAG, "PrefHelper initialized");
     }
 
     /**
+     * Initializes the Preference Helper class
+     *
+     */
+//    public synchronized static void init() {
+//        editor = prefs.edit();
+//        editor.apply();
+//        Log.d(TAG, "PrefHelper initialized");
+//    }
+
+    /**
      * Set current latitude
      *
      */
-    public synchronized static void setCurrentLatitude(String categories) {
+    public void setCurrentLatitude(String categories) {
         editor.putString(MVPRxAPP.getContext().getString(R.string.latitude), categories);
         editor.commit();
         Log.d(TAG, "set Current Latitude SUCCESS");
@@ -60,7 +60,7 @@ public class PrefHelper {
      *
      * @return String
      */
-    public synchronized static String getCurrentLatitude() {
+    public String getCurrentLatitude() {
         return prefs.getString(MVPRxAPP.getContext().getString(R.string.latitude), "0.000");
     }
 
@@ -68,7 +68,7 @@ public class PrefHelper {
      * Set current longitude
      *
      */
-    public synchronized static void setCurrentLongitude(String categories) {
+    public void setCurrentLongitude(String categories) {
         editor.putString(MVPRxAPP.getContext().getString(R.string.longitude), categories);
         editor.commit();
         Log.d(TAG, "set Current Longitude SUCCESS");
@@ -79,7 +79,7 @@ public class PrefHelper {
      *
      * @return String
      */
-    public synchronized static String getCurrentLongitude() {
+    public String getCurrentLongitude() {
         return prefs.getString(MVPRxAPP.getContext().getString(R.string.longitude), "0.000");
     }
 
@@ -87,7 +87,7 @@ public class PrefHelper {
      * Set cuisine query
      *
      */
-    public synchronized static void setCuisineType(String query) {
+    public void setCuisineType(String query) {
         editor.putString(MVPRxAPP.getContext().getString(R.string.query), query);
         editor.commit();
         Log.d(TAG, "set cuisine SUCCESS");
@@ -98,7 +98,7 @@ public class PrefHelper {
      *
      * @return String
      */
-    public synchronized static String getCuisineType() {
+    public String getCuisineType() {
         return prefs.getString(MVPRxAPP.getContext().getString(R.string.query), "");
     }
 
@@ -106,7 +106,7 @@ public class PrefHelper {
      * Set last location update time
      *
      */
-    public synchronized static void setLastLocationUpdateTime(long lastLocationUpdateTime) {
+    public void setLastLocationUpdateTime(long lastLocationUpdateTime) {
         editor.putLong(MVPRxAPP.getContext().getString(R.string.last_update_time), lastLocationUpdateTime);
         editor.commit();
         Log.d(TAG, "set last location update time SUCCESS");
@@ -117,7 +117,7 @@ public class PrefHelper {
      *
      * @return Long
      */
-    public synchronized static long getLastLocationUpdateTime() {
+    public long getLastLocationUpdateTime() {
         return prefs.getLong(MVPRxAPP.getContext().getString(R.string.last_update_time), 0);
     }
 }

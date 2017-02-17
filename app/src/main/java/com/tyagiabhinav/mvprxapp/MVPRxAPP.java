@@ -7,7 +7,6 @@ import android.util.Base64;
 import com.tyagiabhinav.mvprxapp.dagger.ApplicationComponent;
 import com.tyagiabhinav.mvprxapp.dagger.ContextModule;
 import com.tyagiabhinav.mvprxapp.dagger.DaggerApplicationComponent;
-import com.tyagiabhinav.mvprxapp.util.PrefHelper;
 import com.tyagiabhinav.mvprxapp.util.RetrofitHelper;
 
 import timber.log.Timber;
@@ -29,6 +28,8 @@ public class MVPRxAPP extends Application {
     private static Context context;
     private static ApplicationComponent component;
 
+//    @Inject
+//    PrefHelper mPrefHelper;
 
     @Override
     public void onCreate() {
@@ -42,10 +43,10 @@ public class MVPRxAPP extends Application {
 //                .emailTo("tyagiabhinav@yahoo.co.in");
 
         // initialize pref
-        PrefHelper.init(getApplicationContext());
+//        PrefHelper.init(getApplicationContext());
 
         //resetting cuisine query
-        PrefHelper.setCuisineType("");
+//        PrefHelper.setCuisineType("");
 
         Timber.plant(new Timber.DebugTree());
 
@@ -54,7 +55,6 @@ public class MVPRxAPP extends Application {
         component = DaggerApplicationComponent.builder()
                 .contextModule(new ContextModule(getApplicationContext()))
                 .build();
-
 
     }
 

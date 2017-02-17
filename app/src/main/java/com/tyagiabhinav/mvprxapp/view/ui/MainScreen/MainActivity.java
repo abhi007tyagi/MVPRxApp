@@ -30,6 +30,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.tyagiabhinav.mvprxapp.MVPRxAPP;
 import com.tyagiabhinav.mvprxapp.R;
 import com.tyagiabhinav.mvprxapp.model.Injection;
 import com.tyagiabhinav.mvprxapp.model.LoaderProvider;
@@ -42,6 +43,8 @@ import com.tyagiabhinav.mvprxapp.view.adapters.RecyclerViewAdapter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,7 +73,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @BindView(R.id.restaurant_list)
     RecyclerView mRecyclerView;
 
-
+    @Inject
+    PrefHelper mPrefHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +86,15 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         }
 
         ButterKnife.bind(this);
+        MVPRxAPP.getAppComponent().inject(this);
+
+        if (findViewById(R.id.restaurant_detail_container) != null) {
+            // The detail container view will be present only in the
+            // large-screen layouts (res/values-w900dp).
+            // If this view is present, then the
+            // activity should be in two-pane mode.
+            mTwoPane = true;
+        }
 
         setSupportActionBar(toolbar);
         Log.d(TAG, "onCreate: toolbar set");
@@ -128,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         if (!NetworkUtils.isNetworkConnectionAvailable()) {
             Toast.makeText(this, "Network not available.\nShowing saved data!", Toast.LENGTH_SHORT).show();
 //            getSupportLoaderManager().initLoader(CURSOR_LOADER, null, this);
+            presenter.getData(mSortOrder);
         }
 
     }
@@ -208,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void onLocationChanged(Location location) {
         // check if last location change was more than 10 mins or not
-        if ((System.currentTimeMillis() - PrefHelper.getLastLocationUpdateTime()) > 10){//600000) {
+        if ((System.currentTimeMillis() - mPrefHelper.getLastLocationUpdateTime()) > 10){//600000) {
             if (location == null) {
                 Log.d(TAG, "Location Change");
                 askEnableGPS = true;
@@ -220,15 +234,15 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                     String mLat = String.valueOf(location.getLatitude());
                     String mLon = String.valueOf(location.getLongitude());
 
-                    PrefHelper.setCurrentLatitude(mLat);
-                    PrefHelper.setCurrentLongitude(mLon);
+                    mPrefHelper.setCurrentLatitude(mLat);
+                    mPrefHelper.setCurrentLongitude(mLon);
 
                     if (NetworkUtils.isNetworkConnectionAvailable()) {
 //                        NetworkUtils.geRestaurants(this, NetworkUtils.getURL());
                         presenter.onLocationChanged();
                     }
 
-                    PrefHelper.setLastLocationUpdateTime(System.currentTimeMillis());
+                    mPrefHelper.setLastLocationUpdateTime(System.currentTimeMillis());
                     askEnableGPS = false;
                     if (mGoogleApiClient != null) {
                         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
@@ -261,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 // Handle Search Query
                 Log.d(TAG, "onQueryTextSubmit: " + query);
                 try {
-                    PrefHelper.setCuisineType(URLEncoder.encode(query, "UTF-8"));
+                    mPrefHelper.setCuisineType(URLEncoder.encode(query, "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
@@ -289,10 +303,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mSortOrder = position;
                 presenter.getData(mSortOrder);
-//                Log.d(TAG, "onItemSelected: " + position);
-//                Bundle bundle = new Bundle();
-//                bundle.putInt(Keys.FILTER, position);
-//                getSupportLoaderManager().initLoader(CURSOR_LOADER, bundle, RestaurantListActivity.this);
             }
 
             @Override

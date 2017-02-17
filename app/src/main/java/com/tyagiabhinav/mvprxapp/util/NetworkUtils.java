@@ -14,9 +14,6 @@ import android.net.NetworkInfo;
 
 import com.tyagiabhinav.mvprxapp.MVPRxAPP;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by abhinavtyagi on 05/01/17.
  */
@@ -30,7 +27,7 @@ public class NetworkUtils {
         return MVPRxAPP.getContext();
     }
 
-    /**
+     /**
      * Check if network is available
      *
      * @return
@@ -43,69 +40,69 @@ public class NetworkUtils {
         return (network == NetworkInfo.State.CONNECTED || network == NetworkInfo.State.CONNECTING);
     }
 
-    /**
-     * Get final URL
-     *
-     * @return
-     */
-    public static String getURL() {
-        String url = "https://api.foursquare.com/v2/venues/explore/?ll=28.607770,77.371988&section=food&venuePhotos=1&limit=50&sortByDistance=1&query=chinese&oauth_token=GB1ZZLQPMFMGXERZPLGFEBRP1UNWWAH3QQ5QHIDXIUIPJ45E&v=20161229";
-
-        StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append("https://api.foursquare.com/v2/venues/explore/?")
-                .append("ll=").append(PrefHelper.getCurrentLatitude() + ",").append(PrefHelper.getCurrentLongitude() + "&")
-                .append("venuePhotos=1&")
-                .append("limit=50&")
-                .append("sortByDistance=1&")
-                .append("section=food&");
-
-        if (!PrefHelper.getCuisineType().isEmpty())
-            urlBuilder.append("query=").append(PrefHelper.getCuisineType() + "&");
-
-        urlBuilder.append("oauth_token=").append(MVPRxAPP.getOAuthToken());
-
-        return urlBuilder.toString();
-    }
-
-    /**
-     * Get final URL
-     *
-     * @return
-     */
-    public static Map<String, String> getURLOptions() {
-        String url = "ll=28.607770,77.371988&section=food&venuePhotos=1&limit=50&sortByDistance=1&query=chinese&oauth_token=GB1ZZLQPMFMGXERZPLGFEBRP1UNWWAH3QQ5QHIDXIUIPJ45E&v=20161229";
-
+//    /**
+//     * Get final URL
+//     *
+//     * @return
+//     */
+//    public static String getURL() {
+//        String url = "https://api.foursquare.com/v2/venues/explore/?ll=28.607770,77.371988&section=food&venuePhotos=1&limit=50&sortByDistance=1&query=chinese&oauth_token=GB1ZZLQPMFMGXERZPLGFEBRP1UNWWAH3QQ5QHIDXIUIPJ45E&v=20161229";
+//
 //        StringBuilder urlBuilder = new StringBuilder();
-//        urlBuilder.append("ll=").append(PrefHelper.getCurrentLatitude() + ",").append(PrefHelper.getCurrentLongitude() + "&")
+//        urlBuilder.append("https://api.foursquare.com/v2/venues/explore/?")
+//                .append("ll=").append(mPrefHelper.getCurrentLatitude() + ",").append(mPrefHelper.getCurrentLongitude() + "&")
 //                .append("venuePhotos=1&")
 //                .append("limit=50&")
 //                .append("sortByDistance=1&")
 //                .append("section=food&");
 //
-//        if (!PrefHelper.getCuisineType().isEmpty())
-//            urlBuilder.append("query=").append(PrefHelper.getCuisineType() + "&");
+//        if (!mPrefHelper.getCuisineType().isEmpty())
+//            urlBuilder.append("query=").append(mPrefHelper.getCuisineType() + "&");
 //
 //        urlBuilder.append("oauth_token=").append(MVPRxAPP.getOAuthToken());
-
-        Map<String, String> options = new HashMap<>();
-        options.put("ll", PrefHelper.getCurrentLatitude() + "," + PrefHelper.getCurrentLongitude());
-        options.put("venuePhotos", "1");
-        options.put("limit", "50");
-        options.put("sortByDistance", "1");
-        options.put("section", "food");
-        if (!PrefHelper.getCuisineType().isEmpty())
-            options.put("query=",PrefHelper.getCuisineType());
-
-        options.put("oauth_token",MVPRxAPP.getOAuthToken());
-        return options;//urlBuilder.toString();
-    }
-
-    /**
-     * Get restaurant data from server and save to db
-     *
-     * @param dataFetched
-     * @param url
-     */
+//
+//        return urlBuilder.toString();
+//    }
+//
+//    /**
+//     * Get final URL
+//     *
+//     * @return
+//     */
+//    public static Map<String, String> getURLOptions() {
+//        String url = "ll=28.607770,77.371988&section=food&venuePhotos=1&limit=50&sortByDistance=1&query=chinese&oauth_token=GB1ZZLQPMFMGXERZPLGFEBRP1UNWWAH3QQ5QHIDXIUIPJ45E&v=20161229";
+//
+////        StringBuilder urlBuilder = new StringBuilder();
+////        urlBuilder.append("ll=").append(PrefHelper.getCurrentLatitude() + ",").append(PrefHelper.getCurrentLongitude() + "&")
+////                .append("venuePhotos=1&")
+////                .append("limit=50&")
+////                .append("sortByDistance=1&")
+////                .append("section=food&");
+////
+////        if (!PrefHelper.getCuisineType().isEmpty())
+////            urlBuilder.append("query=").append(PrefHelper.getCuisineType() + "&");
+////
+////        urlBuilder.append("oauth_token=").append(MVPRxAPP.getOAuthToken());
+//
+//        Map<String, String> options = new HashMap<>();
+//        options.put("ll", PrefHelper.getCurrentLatitude() + "," + mPrefHelper.getCurrentLongitude());
+//        options.put("venuePhotos", "1");
+//        options.put("limit", "50");
+//        options.put("sortByDistance", "1");
+//        options.put("section", "food");
+//        if (!mPrefHelper.getCuisineType().isEmpty())
+//            options.put("query=",mPrefHelper.getCuisineType());
+//
+//        options.put("oauth_token",MVPRxAPP.getOAuthToken());
+//        return options;//urlBuilder.toString();
+//    }
+//
+//    /**
+//     * Get restaurant data from server and save to db
+//     *
+//     * @param dataFetched
+//     * @param url
+//     */
 //    public static void geRestaurants(final IDataFetched dataFetched, String url) {
 //        Log.d(TAG, "geRestaurants for --> " + url);
 ////        url = "https://api.foursquare.com/v2/venues/explore/?ll=28.607770,77.371988&section=food&venuePhotos=1&limit=50&sortByDistance=1&query=chinese&oauth_token=GB1ZZLQPMFMGXERZPLGFEBRP1UNWWAH3QQ5QHIDXIUIPJ45E&v=20161229";
