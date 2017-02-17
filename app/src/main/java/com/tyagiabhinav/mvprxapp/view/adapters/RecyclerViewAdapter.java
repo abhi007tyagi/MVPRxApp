@@ -17,6 +17,8 @@ import com.tyagiabhinav.mvprxapp.model.pojo.Restaurant;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -26,20 +28,21 @@ import butterknife.ButterKnife;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private Context mContext;
     private boolean mTwoPane;
     private final List<Restaurant> mRestaurants;
 
+    @Inject
     Picasso picasso;
 
     public RecyclerViewAdapter(Context context, boolean twoPane, List<Restaurant> restaurants) {
-        mContext = context;
         mTwoPane = twoPane;
         mRestaurants = restaurants;
+        MVPRxAPP.getAppComponent().inject(this);
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_list_content, parent, false);
         return new ViewHolder(view);
     }
@@ -51,7 +54,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.mItem = restaurant;
 
         // set auto select for first restaurant in case of two pane mode
-//        if (mTwoPane && position == 0) {
+        if (mTwoPane && position == 0) {
 //            Bundle arguments = new Bundle();
 //            arguments.putParcelable(Keys.SELECTED_RESTAURANT, holder.mItem);
 //            arguments.putBoolean(Keys.TWO_PANE, false);
@@ -61,11 +64,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //            ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction()
 //                    .replace(R.id.restaurant_detail_container, fragment)
 //                    .commit();
-//        }
+        }
 
 
         // bind ui views with data
-        MVPRxAPP.getPicasso().load(restaurant.getIconUrl())
+        picasso.load(restaurant.getIconUrl())
                 .into(holder.icon);
 
         if (restaurant.isOpen())

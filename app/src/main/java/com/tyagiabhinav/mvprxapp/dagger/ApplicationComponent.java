@@ -1,6 +1,6 @@
 package com.tyagiabhinav.mvprxapp.dagger;
 
-import com.squareup.picasso.Picasso;
+import com.tyagiabhinav.mvprxapp.view.adapters.RecyclerViewAdapter;
 
 import dagger.Component;
 
@@ -12,5 +12,5 @@ import dagger.Component;
 @Component(modules = {PicassoModule.class})
 public interface ApplicationComponent {
 
-    Picasso getPicasso();
+    void inject(RecyclerViewAdapter recyclerViewAdapter);
 }

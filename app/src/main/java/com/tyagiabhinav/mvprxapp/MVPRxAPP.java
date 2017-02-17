@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Base64;
 
-import com.squareup.picasso.Picasso;
 import com.tyagiabhinav.mvprxapp.dagger.ApplicationComponent;
 import com.tyagiabhinav.mvprxapp.dagger.ContextModule;
 import com.tyagiabhinav.mvprxapp.dagger.DaggerApplicationComponent;
@@ -20,8 +19,6 @@ import timber.log.Timber;
 public class MVPRxAPP extends Application {
 
 
-    private static Picasso picasso;
-
     // get token from native c++ code
     static {
         System.loadLibrary("authToken");
@@ -30,6 +27,8 @@ public class MVPRxAPP extends Application {
     private static native String getAuthToken();
 
     private static Context context;
+    private static ApplicationComponent component;
+
 
     @Override
     public void onCreate() {
@@ -52,11 +51,10 @@ public class MVPRxAPP extends Application {
 
         initRetrofit();
 
-        ApplicationComponent component = DaggerApplicationComponent.builder()
+        component = DaggerApplicationComponent.builder()
                 .contextModule(new ContextModule(getApplicationContext()))
                 .build();
 
-        picasso = component.getPicasso();
 
     }
 
@@ -65,12 +63,12 @@ public class MVPRxAPP extends Application {
     }
 
     /**
-     * Get picasso
+     * Get dagger application component
      *
      * @return
      */
-    public static Picasso getPicasso() {
-        return picasso;
+    public static ApplicationComponent getAppComponent() {
+        return component;
     }
 
     /**
