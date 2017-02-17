@@ -1,4 +1,4 @@
-package com.tyagiabhinav.mvprxapp.view.ui;
+package com.tyagiabhinav.mvprxapp.view.ui.MainScreen;
 
 import android.Manifest;
 import android.content.Intent;
@@ -11,11 +11,18 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -32,6 +39,8 @@ import com.tyagiabhinav.mvprxapp.util.NetworkUtils;
 import com.tyagiabhinav.mvprxapp.util.PrefHelper;
 import com.tyagiabhinav.mvprxapp.view.adapters.RecyclerViewAdapter;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import butterknife.BindView;
@@ -52,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private GoogleApiClient mGoogleApiClient;
 
     private boolean askEnableGPS = false;
+
+    private int mSortOrder = SortOrder.DEFAULT;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -227,6 +238,68 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        Log.d(TAG, "onCreateOptionsMenu.... ");
+        getMenuInflater().inflate(R.menu.list_menu, menu);
+
+        // search restaurants that serve food items as per search query e.g. burger, pizza
+        // search functionality implementation
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                searchView.onActionViewCollapsed();
+                return false;
+            }
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Handle Search Query
+                Log.d(TAG, "onQueryTextSubmit: " + query);
+                try {
+                    PrefHelper.setCuisineType(URLEncoder.encode(query, "UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                if (NetworkUtils.isNetworkConnectionAvailable()) {
+                    presenter.getData(mSortOrder);
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+
+        // sort/filter restaurants in order as per option selected by user
+        // drop-down spinner implementation
+        Spinner spinner = (Spinner) MenuItemCompat.getActionView(menu.findItem(R.id.action_spinner));
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.sort_option, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(R.layout.menu_spinner_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mSortOrder = position;
+                presenter.getData(mSortOrder);
+//                Log.d(TAG, "onItemSelected: " + position);
+//                Bundle bundle = new Bundle();
+//                bundle.putInt(Keys.FILTER, position);
+//                getSupportLoaderManager().initLoader(CURSOR_LOADER, bundle, RestaurantListActivity.this);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        return true;
     }
 
 

@@ -1,4 +1,4 @@
-package com.tyagiabhinav.mvprxapp.view.ui;
+package com.tyagiabhinav.mvprxapp.view.ui.MainScreen;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -74,9 +74,7 @@ public class MainPresenter implements MainContract.Presenter, LoaderManager.Load
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
-    }
+    public void onLoaderReset(Loader<Cursor> loader) {}
 
     @Override
     public void onLocationChanged() {

@@ -1,4 +1,4 @@
-package com.tyagiabhinav.mvprxapp.view.ui;
+package com.tyagiabhinav.mvprxapp.view.ui.MainScreen;
 
 import android.support.annotation.IntDef;
 
