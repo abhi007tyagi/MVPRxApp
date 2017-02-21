@@ -38,7 +38,6 @@ import com.tyagiabhinav.mvprxapp.model.pojo.Restaurant;
 import com.tyagiabhinav.mvprxapp.util.DividerLine;
 import com.tyagiabhinav.mvprxapp.util.NetworkUtils;
 import com.tyagiabhinav.mvprxapp.util.PrefHelper;
-import com.tyagiabhinav.mvprxapp.view.adapters.RecyclerViewAdapter;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

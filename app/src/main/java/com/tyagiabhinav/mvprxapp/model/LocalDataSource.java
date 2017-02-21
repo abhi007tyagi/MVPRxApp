@@ -68,16 +68,35 @@ public class LocalDataSource implements DataSource {
 
     @Override
     public void reviewAction(@NonNull String id, @NonNull String review) {
+        Log.d(TAG, "reviewAction..");
+        ContentValues values = new ContentValues();
+        values.put(DatabaseContract.TableRestaurantsVisited.COL_COMMENTS, review);
 
+        int updatedRow = mContentResolver.update(DatabaseContract.TableRestaurantsVisited.buildRestaurantVisitedItemUri(id), values, DatabaseContract.TableRestaurantsVisited.COL_RESTAURANT_ID + "=?", new String[]{id});
+        Log.d(TAG, "row updated " + updatedRow);
     }
 
     @Override
     public void upAction(@NonNull String id) {
+        ContentValues values = new ContentValues();
+        values.put(DatabaseContract.TableRestaurantsVisited.COL_IS_VISITED, 1);
+        values.put(DatabaseContract.TableRestaurantsVisited.COL_IS_CONSIDERED, 1);
 
+        int updatedRow = mContentResolver.update(DatabaseContract.TableRestaurantsVisited.buildRestaurantVisitedItemUri(id), values, DatabaseContract.TableRestaurantsVisited.COL_RESTAURANT_ID + "=?", new String[]{id});
+        Log.d(TAG, "row updated " + updatedRow);
     }
 
     @Override
     public void downAction(@NonNull String id) {
+        Log.d(TAG, "doDownAction..");
+        ContentValues values = new ContentValues();
+        values.put(DatabaseContract.TableRestaurantsVisited.COL_IS_VISITED, 1);
+        values.put(DatabaseContract.TableRestaurantsVisited.COL_IS_CONSIDERED, 0);
 
+        int updatedRow = mContentResolver.update(DatabaseContract.TableRestaurantsVisited.buildRestaurantVisitedItemUri(id), values, DatabaseContract.TableRestaurantsVisited.COL_RESTAURANT_ID + "=?", new String[]{id});
+        Log.d(TAG, "row updated " + updatedRow);
     }
 }
+
+
+

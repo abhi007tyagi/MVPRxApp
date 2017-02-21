@@ -1,0 +1,170 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.tyagiabhinav.mvprxapp.view.ui.DetailScreen.RestaurantDetailActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_large"
+            android:drawableLeft="@drawable/ic_place_24dp"
+            android:drawablePadding="@dimen/padding_very_small"
+            android:drawableStart="@drawable/ic_place_24dp"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/address"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_large"
+            android:autoLink="phone"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_call_24dp"
+            android:drawablePadding="@dimen/padding_very_small"
+            android:drawableStart="@drawable/ic_call_24dp"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/website"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/phone"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_large"
+            android:autoLink="web"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_language_24dp"
+            android:drawablePadding="@dimen/padding_very_small"
+            android:drawableStart="@drawable/ic_language_24dp"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/website"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_large"
+            android:drawableLeft="@drawable/ic_lightbulb_black_24dp"
+            android:drawablePadding="@dimen/padding_very_small"
+            android:drawableStart="@drawable/ic_lightbulb_black_24dp"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+
+        <TextView
+            android:id="@+id/review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tips"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_large"
+            android:drawableLeft="@drawable/ic_mode_edit_black_24dp"
+            android:drawablePadding="@dimen/padding_very_small"
+            android:drawableStart="@drawable/ic_mode_edit_black_24dp"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+        <LinearLayout
+            android:id="@+id/infoPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/review"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/margin_small"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/padding">
+
+            <ImageView
+                android:id="@+id/isOpen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/priceTier"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textStyle="italic" />
+
+
+            <TextView
+                android:id="@+id/rating"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:textAppearance="?android:textAppearanceSmall" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/infoPanel"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_large">
+
+            <ImageView
+                android:id="@+id/upBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_very_large"
+                android:layout_marginRight="@dimen/margin_very_large"
+                android:background="@drawable/up_btn_bg"
+                android:clickable="true" />
+
+            <ImageView
+                android:id="@+id/downBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_very_large"
+                android:layout_marginStart="@dimen/margin_very_large"
+                android:background="@drawable/down_btn_bg"
+                android:clickable="true" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>

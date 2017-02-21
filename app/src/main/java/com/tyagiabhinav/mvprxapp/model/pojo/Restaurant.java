@@ -27,30 +27,8 @@ public class Restaurant implements Parcelable {
     private boolean isConsidered;
     private String comments;
 
-    public Restaurant(){
+    public Restaurant() {
     }
-
-
-//    public Restaurant(Cursor cursor) {
-//        restaurantId = cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_RESTAURANT_ID));
-//        name = cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_NAME));
-//        address = cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_ADDRESS));
-//        lat = cursor.getDouble(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_LATITUDE));
-//        lon = cursor.getDouble(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_LONGITUDE));
-//        distance = cursor.getFloat(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_DISTANCE));
-//        rating = cursor.getFloat(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_RATING));
-//        price = cursor.getInt(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_PRICE));
-//        isOpen = (cursor.getInt(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_IS_OPEN)) != 0) ? true : false;
-//        imgUrl = cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_IMG_URL));
-//        iconUrl = cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_ICON_URL));
-//        category = cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_CATEGORY));
-//        tips = cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_TIPS));
-//        url = cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_URL));
-//        phone = cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_PHONE));
-//        isVisited = (cursor.getInt(cursor.getColumnIndex(DatabaseContract.TableRestaurantsVisited.COL_IS_VISITED)) != 0) ? true : false;
-//        isConsidered = (cursor.getInt(cursor.getColumnIndex(DatabaseContract.TableRestaurantsVisited.COL_IS_CONSIDERED)) != 0) ? true : false;
-//        comments = cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurantsVisited.COL_COMMENTS));
-//    }
 
     public String getId() {
         return restaurantId;
@@ -223,14 +201,14 @@ public class Restaurant implements Parcelable {
         dest.writeString(this.comments);
     }
 
-    public Restaurant(Parcel in) {
+    protected Restaurant(Parcel in) {
         this.restaurantId = in.readString();
         this.name = in.readString();
         this.address = in.readString();
         this.lat = in.readDouble();
         this.lon = in.readDouble();
         this.distance = in.readFloat();
-        this.rating = in.readFloat();
+        this.rating = in.readDouble();
         this.price = in.readInt();
         this.isOpen = in.readByte() != 0;
         this.imgUrl = in.readString();

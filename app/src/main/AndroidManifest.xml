@@ -20,6 +20,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".view.ui.DetailScreen.RestaurantDetailActivity"
+            android:label="@string/title_restaurant_detail"
+            android:parentActivityName=".view.ui.DetailScreen.RestaurantDetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.tyagiabhinav.mvprxapp.view.ui.DetailScreen.RestaurantDetailActivity" />
+        </activity>
+
         <provider
             android:name=".model.db.RestaurantProvider"
             android:authorities="com.tyagiabhinav.mvprxapp"

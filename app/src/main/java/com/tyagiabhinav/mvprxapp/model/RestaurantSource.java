@@ -75,16 +75,16 @@ public class RestaurantSource implements DataSource {
 
     @Override
     public void reviewAction(@NonNull String id, @NonNull String review) {
-
+        mLocalDataSource.reviewAction(id, review);
     }
 
     @Override
     public void upAction(@NonNull String id) {
-
+        mLocalDataSource.upAction(id);
     }
 
     @Override
     public void downAction(@NonNull String id) {
-
+        mLocalDataSource.downAction(id);
     }
 }
