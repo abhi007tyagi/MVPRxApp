@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.tyagiabhinav.mvprxapp.MVPRxAPP;
 import com.tyagiabhinav.mvprxapp.model.pojo.Category;
 import com.tyagiabhinav.mvprxapp.model.pojo.FoursquareAPI;
 import com.tyagiabhinav.mvprxapp.model.pojo.Item_;
@@ -14,17 +15,17 @@ import com.tyagiabhinav.mvprxapp.model.pojo.Restaurant;
 import com.tyagiabhinav.mvprxapp.model.pojo.Tip;
 import com.tyagiabhinav.mvprxapp.model.pojo.Venue;
 import com.tyagiabhinav.mvprxapp.util.ParsingHelper;
-import com.tyagiabhinav.mvprxapp.util.RetrofitHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by abhinavtyagi on 10/02/17.
@@ -32,13 +33,15 @@ import static android.content.ContentValues.TAG;
 
 public class RemoteDataSource implements DataSource {
 
+    public static final String TAG = RemoteDataSource.class.getSimpleName();
     private static RemoteDataSource INSTANCE;
 
-    private ContentResolver mContentResolver;
+    @Inject
+    Retrofit retrofit;
 
     // Prevent direct instantiation.
     private RemoteDataSource(@NonNull ContentResolver contentResolver) {
-        mContentResolver = contentResolver;
+        MVPRxAPP.getAppComponent().inject(this);
     }
 
     public static RemoteDataSource getInstance(@NonNull ContentResolver contentResolver) {
@@ -55,7 +58,7 @@ public class RemoteDataSource implements DataSource {
 
     @Override
     public void getRestaurants(@NonNull final GetRestaurantList callback) {
-        Retrofit retrofit = RetrofitHelper.getInstance(null).getRetrofit();
+//        Retrofit retrofit = RetrofitHelper.getInstance(null).getRetrofit();
         Call<FoursquareAPI> getRestaurantList = retrofit.create(ApiCall.class).getRestaurants();//NetworkUtils.getURLOptions());
         getRestaurantList.enqueue(new Callback<FoursquareAPI>() {
             @Override

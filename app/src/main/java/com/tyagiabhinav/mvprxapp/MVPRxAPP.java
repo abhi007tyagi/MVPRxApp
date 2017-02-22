@@ -4,10 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Base64;
 
+import com.tyagiabhinav.crashhandler.CrashHandler;
 import com.tyagiabhinav.mvprxapp.dagger.ApplicationComponent;
 import com.tyagiabhinav.mvprxapp.dagger.ContextModule;
 import com.tyagiabhinav.mvprxapp.dagger.DaggerApplicationComponent;
-import com.tyagiabhinav.mvprxapp.util.RetrofitHelper;
 
 import timber.log.Timber;
 
@@ -38,29 +38,20 @@ public class MVPRxAPP extends Application {
         this.context = getApplicationContext();
 
         // set crash handler
-//        CrashHandler.init(this)
-//                .showStackTraceReport(true)
-//                .emailTo("tyagiabhinav@yahoo.co.in");
-
-        // initialize pref
-//        PrefHelper.init(getApplicationContext());
-
-        //resetting cuisine query
-//        PrefHelper.setCuisineType("");
+        CrashHandler.init(this)
+                .showStackTraceReport(true)
+                .emailTo("tyagiabhinav@yahoo.co.in");
 
         Timber.plant(new Timber.DebugTree());
-
-        initRetrofit();
 
         component = DaggerApplicationComponent.builder()
                 .contextModule(new ContextModule(getApplicationContext()))
                 .build();
-
     }
 
-    private void initRetrofit() {
-        RetrofitHelper.getInstance(getApplicationContext());
-    }
+//    private void initRetrofit() {
+//        RetrofitHelper.getInstance(getApplicationContext());
+//    }
 
     /**
      * Get dagger application component
