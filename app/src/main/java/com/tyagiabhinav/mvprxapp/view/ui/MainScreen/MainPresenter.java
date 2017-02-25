@@ -31,7 +31,7 @@ public class MainPresenter implements MainContract.Presenter, LoaderManager.Load
     private final LoaderManager mLoaderManager;
     private final RestaurantSource mRestaurantSource;
 
-    private int mSortOrder = SortOrder.DEFAULT;
+    private Bundle mBundle;
 
     public MainPresenter(MainContract.View view, LoaderProvider loaderProvider, LoaderManager loaderManager, RestaurantSource restaurantSource) {
         this.view = view;
@@ -41,9 +41,9 @@ public class MainPresenter implements MainContract.Presenter, LoaderManager.Load
     }
 
     @Override
-    public void getData(int sortOrder) {
-        this.mSortOrder = sortOrder;
+    public void getData(Bundle bundle) {
 //        mRestaurantSource.getRestaurants(this);
+        this.mBundle = bundle;
         initLoader();
     }
 
@@ -93,12 +93,14 @@ public class MainPresenter implements MainContract.Presenter, LoaderManager.Load
 
     private void initLoader(){
         // we don't care about the result since the CursorLoader will load the data for us
-        Bundle bundle = new Bundle();
-        bundle.putInt(SORT_KEY, mSortOrder);
+//        if(mBundle == null) {
+//            mBundle = new Bundle();
+//        }
+//        mBundle.putInt(SORT_KEY, mSortOrder);
         if (mLoaderManager.getLoader(TASKS_LOADER) == null) {
-            mLoaderManager.initLoader(TASKS_LOADER, bundle, this);
+            mLoaderManager.initLoader(TASKS_LOADER, mBundle, this);
         } else {
-            mLoaderManager.restartLoader(TASKS_LOADER, bundle, this);
+            mLoaderManager.restartLoader(TASKS_LOADER, mBundle, this);
         }
     }
 }

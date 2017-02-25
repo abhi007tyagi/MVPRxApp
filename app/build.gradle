@@ -48,7 +48,7 @@ dependencies {
     // add picasso for image download and caching
     compile 'com.squareup.picasso:picasso:2.5.2'
     // add location services for fused location
-    compile 'com.google.android.gms:play-services-location:10.0.1'
+    compile 'com.google.android.gms:play-services-location:10.2.0'
     // add butterknife
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
@@ -61,7 +61,11 @@ dependencies {
     compile 'com.google.dagger:dagger:2.6'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.6'
 
+    // Required -- JUnit 4 framework
     testCompile 'junit:junit:4.12'
+    // Optional -- Mockito framework
+    testCompile 'org.mockito:mockito-all:1.10.19'
+
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

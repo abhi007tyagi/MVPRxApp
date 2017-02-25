@@ -48,6 +48,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+
 public class MainActivity extends AppCompatActivity implements MainContract.View , GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
@@ -140,7 +141,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         if (!NetworkUtils.isNetworkConnectionAvailable()) {
             Toast.makeText(this, "Network not available.\nShowing saved data!", Toast.LENGTH_SHORT).show();
 //            getSupportLoaderManager().initLoader(CURSOR_LOADER, null, this);
-            presenter.getData(mSortOrder);
+            Bundle bundle = new Bundle();
+            bundle.putInt(presenter.SORT_KEY, mSortOrder);
+            presenter.getData(bundle);
         }
 
     }
@@ -279,7 +282,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                     e.printStackTrace();
                 }
                 if (NetworkUtils.isNetworkConnectionAvailable()) {
-                    presenter.getData(mSortOrder);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(presenter.SORT_KEY, mSortOrder);
+                    presenter.getData(bundle);
                 }
                 return true;
             }
@@ -301,7 +306,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mSortOrder = position;
-                presenter.getData(mSortOrder);
+                Bundle bundle = new Bundle();
+                bundle.putInt(presenter.SORT_KEY, mSortOrder);
+                presenter.getData(bundle);
             }
 
             @Override

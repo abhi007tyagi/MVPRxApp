@@ -1,5 +1,7 @@
 package com.tyagiabhinav.mvprxapp.view.ui.MainScreen;
 
+import android.os.Bundle;
+
 import com.tyagiabhinav.mvprxapp.model.pojo.Restaurant;
 
 import java.util.List;
@@ -15,7 +17,7 @@ public interface MainContract {
     }
 
     interface Presenter{
-        void getData(int sortOrder);
+        void getData(Bundle bundle);
         void onLocationChanged();
     }
 }
