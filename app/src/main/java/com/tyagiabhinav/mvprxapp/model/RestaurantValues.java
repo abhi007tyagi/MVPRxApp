@@ -7,6 +7,7 @@ import android.util.SparseArray;
 import com.tyagiabhinav.mvprxapp.model.db.DatabaseContract;
 import com.tyagiabhinav.mvprxapp.model.pojo.Restaurant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class RestaurantValues {
         ContentValues[] restaurantList = new ContentValues[numberOfRestaurants];
         ContentValues[] visitedRestaurantList = new ContentValues[numberOfRestaurants];
 
-        for(int i=0; i< numberOfRestaurants; i++){
+        for (int i = 0; i < numberOfRestaurants; i++) {
 
             // set default values for visited table
             ContentValues restaurantVisitedValue = new ContentValues();
@@ -70,7 +71,23 @@ public class RestaurantValues {
         return restaurantValue;
     }
 
-    public static final Restaurant getRestaurantFromCursor( Cursor cursor){
+    public static List<Restaurant> getRestaurantsFromCursor(Cursor cursor) {
+        ArrayList<Restaurant> restaurants = new ArrayList<>();
+
+        if (cursor != null) {
+            // move cursor to first row
+            if (cursor.moveToFirst()) {
+                do {
+                    restaurants.add(RestaurantValues.getRestaurantFromCursor(cursor));
+                    // move to next row
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+        return restaurants;
+    }
+
+    public static Restaurant getRestaurantFromCursor(Cursor cursor) {
         Restaurant restaurant = new Restaurant();
         restaurant.setId(cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_RESTAURANT_ID)));
         restaurant.setName(cursor.getString(cursor.getColumnIndex(DatabaseContract.TableRestaurants.COL_NAME)));

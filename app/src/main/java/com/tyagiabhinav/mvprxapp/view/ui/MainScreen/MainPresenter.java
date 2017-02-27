@@ -12,14 +12,13 @@ import com.tyagiabhinav.mvprxapp.model.RestaurantSource;
 import com.tyagiabhinav.mvprxapp.model.RestaurantValues;
 import com.tyagiabhinav.mvprxapp.model.pojo.Restaurant;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by abhinavtyagi on 03/02/17.
  */
 
-public class MainPresenter implements MainContract.Presenter, LoaderManager.LoaderCallbacks<Cursor>, DataSource.GetRestaurantList{
+public class MainPresenter implements MainContract.Presenter, LoaderManager.LoaderCallbacks<Cursor>, DataSource.GetRestaurantList {
 
     public static final String TAG = MainPresenter.class.getSimpleName();
 
@@ -54,27 +53,28 @@ public class MainPresenter implements MainContract.Presenter, LoaderManager.Load
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        Log.d(TAG, "onLoadFinished: "+cursor.getCount());
-        ArrayList<Restaurant> restaurants = new ArrayList<>();
-
-        if (cursor != null) {
-            Log.d(TAG, "onLoadFinished -->" + cursor.getCount());
-            // move cursor to first row
-            if (cursor.moveToFirst()) {
-                do {
-                    restaurants.add(RestaurantValues.getRestaurantFromCursor(cursor));
-                    // move to next row
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-            Log.d(TAG, "Destroying Loader");
-            mLoaderManager.destroyLoader(loader.getId());
-            view.updateView(restaurants);
-        }
+//        Log.d(TAG, "onLoadFinished: " + cursor.getCount());
+//        ArrayList<Restaurant> restaurants = new ArrayList<>();
+//
+//        if (cursor != null) {
+//            Log.d(TAG, "onLoadFinished -->" + cursor.getCount());
+//            // move cursor to first row
+//            if (cursor.moveToFirst()) {
+//                do {
+//                    restaurants.add(RestaurantValues.getRestaurantFromCursor(cursor));
+//                    // move to next row
+//                } while (cursor.moveToNext());
+//            }
+//            cursor.close();
+//        Log.d(TAG, "Destroying Loader");
+        mLoaderManager.destroyLoader(loader.getId());
+//        }
+        view.updateView(cursor);
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {}
+    public void onLoaderReset(Loader<Cursor> loader) {
+    }
 
     @Override
     public void onLocationChanged() {
@@ -91,7 +91,7 @@ public class MainPresenter implements MainContract.Presenter, LoaderManager.Load
         Log.e(TAG, "onPresenterFetchFailure: ");
     }
 
-    private void initLoader(){
+    private void initLoader() {
         // we don't care about the result since the CursorLoader will load the data for us
 //        if(mBundle == null) {
 //            mBundle = new Bundle();

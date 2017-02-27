@@ -3,6 +3,7 @@ package com.tyagiabhinav.mvprxapp.view.ui.MainScreen;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import com.tyagiabhinav.mvprxapp.MVPRxAPP;
 import com.tyagiabhinav.mvprxapp.R;
 import com.tyagiabhinav.mvprxapp.model.Injection;
 import com.tyagiabhinav.mvprxapp.model.LoaderProvider;
+import com.tyagiabhinav.mvprxapp.model.RestaurantValues;
 import com.tyagiabhinav.mvprxapp.model.pojo.Restaurant;
 import com.tyagiabhinav.mvprxapp.util.DividerLine;
 import com.tyagiabhinav.mvprxapp.util.NetworkUtils;
@@ -321,7 +323,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
 
     @Override
-    public void updateView(List<Restaurant> restaurants) {
+    public void updateView(Cursor cursor){//List<Restaurant> restaurants) {
+        List<Restaurant> restaurants = RestaurantValues.getRestaurantsFromCursor(cursor);
         if (mRecyclerView != null) {
             Log.d(TAG, "setupRecyclerView: ");
             RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mTwoPane, restaurants);

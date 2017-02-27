@@ -1,10 +1,7 @@
 package com.tyagiabhinav.mvprxapp.view.ui.MainScreen;
 
+import android.database.Cursor;
 import android.os.Bundle;
-
-import com.tyagiabhinav.mvprxapp.model.pojo.Restaurant;
-
-import java.util.List;
 
 /**
  * Created by abhinavtyagi on 03/02/17.
@@ -13,7 +10,8 @@ import java.util.List;
 public interface MainContract {
 
     interface View{
-        void updateView(List<Restaurant> restaurants);
+//        void updateView(List<Restaurant> restaurants);
+        void updateView(Cursor cursor);
     }
 
     interface Presenter{
