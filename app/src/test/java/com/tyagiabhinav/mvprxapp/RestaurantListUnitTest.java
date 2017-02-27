@@ -88,6 +88,6 @@ public class RestaurantListUnitTest {
 
         mMainPresenter.onLoadFinished(mock(Loader.class), mRestaurantCursor);
 
-        verify(mRestaurantView).updateView(mRestaurantCursor);
+        verify(mRestaurantView).updateView(mShowRestaurantsArgumentCaptor.capture());
     }
 }

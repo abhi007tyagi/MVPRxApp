@@ -10,7 +10,6 @@ import android.os.Bundle;
 public interface MainContract {
 
     interface View{
-//        void updateView(List<Restaurant> restaurants);
         void updateView(Cursor cursor);
     }
 

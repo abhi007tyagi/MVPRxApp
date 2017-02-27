@@ -323,7 +323,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
 
     @Override
-    public void updateView(Cursor cursor){//List<Restaurant> restaurants) {
+    public void updateView(Cursor cursor) {
         List<Restaurant> restaurants = RestaurantValues.getRestaurantsFromCursor(cursor);
         if (mRecyclerView != null) {
             Log.d(TAG, "setupRecyclerView: ");
