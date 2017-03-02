@@ -16,6 +16,8 @@ import java.util.List;
 
 public class RestaurantValues {
 
+    private RestaurantValues(){}
+
     public static SparseArray<ContentValues[]> from(List<Restaurant> restaurants) {
         int numberOfRestaurants = restaurants.size();
         SparseArray<ContentValues[]> restaurantsMap = new SparseArray<>(numberOfRestaurants);

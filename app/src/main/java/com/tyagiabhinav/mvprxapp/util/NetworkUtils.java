@@ -20,6 +20,8 @@ import com.tyagiabhinav.mvprxapp.MVPRxAPP;
 
 public class NetworkUtils {
 
+    private NetworkUtils(){}
+
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
     private static Context getContext() {

@@ -40,7 +40,6 @@ public class MainPresenter implements MainContract.Presenter, LoaderManager.Load
 
     @Override
     public void getData(Bundle bundle) {
-//        mRestaurantSource.getRestaurants(this);
         this.mBundle = bundle;
         initLoader();
     }
@@ -52,11 +51,7 @@ public class MainPresenter implements MainContract.Presenter, LoaderManager.Load
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-//        Log.d(TAG, "onLoadFinished: " + cursor.getCount());
-
         mLoaderManager.destroyLoader(loader.getId());
-//        Log.d(TAG, "Destroyed Loader");
-
         view.updateView(cursor);
     }
 
@@ -80,11 +75,6 @@ public class MainPresenter implements MainContract.Presenter, LoaderManager.Load
     }
 
     private void initLoader() {
-        // we don't care about the result since the CursorLoader will load the data for us
-//        if(mBundle == null) {
-//            mBundle = new Bundle();
-//        }
-//        mBundle.putInt(SORT_KEY, mSortOrder);
         if (mLoaderManager.getLoader(TASKS_LOADER) == null) {
             mLoaderManager.initLoader(TASKS_LOADER, mBundle, this);
         } else {

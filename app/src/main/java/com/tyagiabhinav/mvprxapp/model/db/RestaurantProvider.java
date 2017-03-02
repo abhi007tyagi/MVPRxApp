@@ -153,9 +153,6 @@ public class RestaurantProvider extends ContentProvider {
 //                            Log.d(LOG_TAG, _id+" row inserted");
                             insertedRows++;
                         }
-                        else {
-//                            Log.d(LOG_TAG, "no row inserted");
-                        }
                     } catch (SQLException e){
                         e.printStackTrace();
                         Log.d(LOG_TAG, "Exception-->"+e.getMessage());
@@ -169,9 +166,6 @@ public class RestaurantProvider extends ContentProvider {
                         if (_id > 0) {
 //                            Log.d(LOG_TAG, _id+" row inserted");
                             insertedRows++;
-                        }
-                        else {
-//                            Log.d(LOG_TAG, "no row inserted");
                         }
                     }catch (SQLException e){
                         e.printStackTrace();

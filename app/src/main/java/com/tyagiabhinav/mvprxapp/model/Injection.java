@@ -10,6 +10,8 @@ import android.support.annotation.NonNull;
 
 public class Injection  {
 
+    private Injection(){}
+
     public static RestaurantSource provideRestaurantRepo(@NonNull Context context) {
         return RestaurantSource.getInstance(provideRemoteDataSource(context), provideLocalDataSource(context));
     }

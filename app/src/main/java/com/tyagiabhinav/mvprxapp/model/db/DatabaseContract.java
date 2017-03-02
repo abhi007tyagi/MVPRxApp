@@ -13,6 +13,8 @@ import android.provider.BaseColumns;
  */
 public class DatabaseContract {
 
+    private DatabaseContract(){}
+
     // Unique authority string for the content provider
     public static final String CONTENT_AUTHORITY = "com.tyagiabhinav.mvprxapp";
 

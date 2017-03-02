@@ -13,6 +13,8 @@ import com.tyagiabhinav.mvprxapp.MVPRxAPP;
 
 public class DBUtils {
 
+    private DBUtils(){}
+
     private static final String TAG = DBUtils.class.getSimpleName();
 
     private static Context getContext() {

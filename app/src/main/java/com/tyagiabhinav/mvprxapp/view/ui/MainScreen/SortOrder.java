@@ -19,15 +19,15 @@ public class SortOrder {
 
     @IntDef({DEFAULT, PRICE, RATING, IS_OPEN})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface DialogType {
+    public @interface Order {
     }
 
-    @DialogType
+    @Order
     public int getSortOrder() {
         return sortOrder;
     }
 
-    public void setSortOrder(@DialogType int type) {
+    public void setSortOrder(@Order int sortOrder) {
         this.sortOrder = sortOrder;
     }
 }

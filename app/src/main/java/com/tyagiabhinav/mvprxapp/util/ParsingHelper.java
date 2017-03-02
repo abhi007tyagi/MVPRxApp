@@ -10,6 +10,8 @@ import java.util.List;
 
 public class ParsingHelper {
 
+    private ParsingHelper(){}
+
     /**
      *  Get address from json string array
      *
