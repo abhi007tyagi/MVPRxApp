@@ -29,14 +29,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-
 /**
  * Created by abhinavtyagi on 14/02/17.
  */
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private  Context mContext;
+    private Context mContext;
     private boolean mTwoPane;
     private final List<Restaurant> mRestaurants;
 
@@ -87,7 +86,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.isOpen.setImageResource(R.drawable.yellow_dot);
 
         DecimalFormat df = new DecimalFormat("#.##");
-        holder.distance.setText(Float.valueOf(df.format(restaurant.getDistance())) + "km");
+        holder.distance.setText(String.format("%skm", Float.valueOf(df.format(restaurant.getDistance()))));
         holder.name.setText(restaurant.getName());
 
         if (restaurant.getPhone() != null && !TextUtils.isEmpty(restaurant.getPhone())) {
@@ -96,7 +95,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.phone.setVisibility(View.INVISIBLE);
         }
 
-        holder.rating.setText(restaurant.getRating() + "/10");
+        holder.rating.setText(String.format("%s/10", restaurant.getRating()));
 
         int price = restaurant.getPrice();
 
@@ -107,27 +106,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.priceTier.setText(priceIcons.toString());
 
         // grid item click listener
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle arguments = new Bundle();
-                arguments.putParcelable(Constants.SELECTED_RESTAURANT, holder.mItem);
-                if (mTwoPane) {
-                    RestaurantDetailFragment fragment = new RestaurantDetailFragment();
-                    arguments.putBoolean(Constants.TWO_PANE, true);
-                    fragment.setArguments(arguments);
-                    ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.restaurant_detail_container, fragment)
-                            .commit();
-                } else {
-                    Context context = v.getContext();
-                    Intent intent = new Intent(context, RestaurantDetailActivity.class);
-                    arguments.putBoolean(Constants.TWO_PANE, false);
-                    intent.putExtras(arguments);
-                    context.startActivity(intent);
-                }
-            }
-        });
+        holder.mView.setOnClickListener((v) -> handleOnClickListener(v, holder));
     }
 
     @Override
@@ -135,8 +114,27 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mRestaurants.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
+    private void handleOnClickListener(View v, ViewHolder holder) {
+        Bundle arguments = new Bundle();
+        arguments.putParcelable(Constants.SELECTED_RESTAURANT, holder.mItem);
+        if (mTwoPane) {
+            RestaurantDetailFragment fragment = new RestaurantDetailFragment();
+            arguments.putBoolean(Constants.TWO_PANE, true);
+            fragment.setArguments(arguments);
+            ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.restaurant_detail_container, fragment)
+                    .commit();
+        } else {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, RestaurantDetailActivity.class);
+            arguments.putBoolean(Constants.TWO_PANE, false);
+            intent.putExtras(arguments);
+            context.startActivity(intent);
+        }
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+        private final View mView;
 
         @BindView(R.id.icon)
         ImageView icon;
@@ -159,9 +157,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @BindView(R.id.priceTier)
         TextView priceTier;
 
-        public Restaurant mItem;
+        private Restaurant mItem;
 
-        public ViewHolder(View view) {
+        private ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             mView = view;

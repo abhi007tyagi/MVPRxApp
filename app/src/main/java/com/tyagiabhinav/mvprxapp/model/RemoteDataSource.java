@@ -101,6 +101,8 @@ public class RemoteDataSource implements DataSource {
         int size = restaurantList.size();
 
         List<Restaurant> restaurants = new ArrayList<>(size); //adding size will allocate exact size for list for better performance
+
+        // As min SDK is 16, we can't use stream feature of Java 8 here
         for (int index = 0; index < size; index++) {
             Venue venue = restaurantList.get(index).getVenue();
             Location loc = venue.getLocation();
